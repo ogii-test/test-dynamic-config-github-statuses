@@ -23,14 +23,12 @@ jobs:
     steps:
       - checkout
       - run: "echo 'Hello from module A!'"
-      - run: cat module-a/README.md
 
   module-b:
     machine: true
     steps:
       - checkout
       - run: "echo 'Hello from module B!'"
-      - run: cat module-b/README.md
 
   module-b-post:
     docker:

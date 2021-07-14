@@ -29,6 +29,7 @@ jobs:
     steps:
       - checkout
       - run: "echo 'Hello from module B!'"
+      - run: exit 1
 
   module-b-post:
     docker:

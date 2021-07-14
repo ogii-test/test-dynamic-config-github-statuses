@@ -36,6 +36,12 @@ jobs:
     steps:
       - run: "echo 'Continuing module B!'"
       - run: env
+      
+  final-job:
+    docker:
+      - image: alpine
+    steps:
+      - run: echo "finished building"
 
 workflows:
   pre:
@@ -55,6 +61,9 @@ workflows:
     when: << pipeline.parameters.run-module-a >>
     jobs:
       - module-a
+      - final-job:
+          requires:
+            - module-a
   module-b:
     when: << pipeline.parameters.run-module-b >>
     jobs:
@@ -62,3 +71,6 @@ workflows:
       - module-b-post:
           requires:
             - module-b
+      - final-job:
+          requires:
+            - module-b-post

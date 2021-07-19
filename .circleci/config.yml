@@ -44,6 +44,12 @@ jobs:
     steps:
       - run: echo "finished building"
 
+  build:
+    docker:
+      - image: alpine
+    steps:
+      - run: echo "finished building"
+      
 workflows:
   pre:
     when: << pipeline.parameters.run-setup >>
@@ -58,20 +64,26 @@ workflows:
             .* run-setup false
             module-a/.* run-module-a true
             module-b/.* run-module-b true
-  module-a:
-    when: << pipeline.parameters.run-module-a >>
-    jobs :
-      - module-a
-      - final-job:
-          requires:
-            - module-a
-  module-b:
-    when: << pipeline.parameters.run-module-b >>
+  build:
+    when: << pipeline.parameters.build_a >>
     jobs:
-      - module-b
-      - module-b-post:
-          requires:
-            - module-b
-      - final-job:
-          requires:
-            - module-b-post
+      - build_a:
+          filters:
+            branches:
+              only:
+                - /integration/
+                - /^release.*/
+                - /^buildme.*/
+      - build_b:
+          filters:
+            branches:
+              only:
+                - /naga/newawsaccount/
+                - /stage/
+                - /prod/
+                - /cert/
+      - build_b_parallel_deploy:
+          filters:
+            branches:
+              only:
+                - /stress/

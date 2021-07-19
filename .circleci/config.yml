@@ -66,24 +66,24 @@ workflows:
             module-b/.* run-module-b true
   build:
     when: << pipeline.parameters.build_a >>
-      jobs:
-        - build_a:
-            filters:
-              branches:
-                only:
-                  - /integration/
-                  - /^release.*/
-                  - /^buildme.*/
-        - build_b:
-            filters:
-              branches:
-                only:
-                  - /naga/newawsaccount/
-                  - /stage/
-                  - /prod/
-                  - /cert/
-        - build_b_parallel_deploy:
-            filters:
-              branches:
-                only:
-                  - /stress/
+    jobs:
+      - build_a:
+          filters:
+            branches:
+              only:
+                - /integration/
+                - /^release.*/
+                - /^buildme.*/
+      - build_b:
+          filters:
+            branches:
+              only:
+                - /naga/newawsaccount/
+                - /stage/
+                - /prod/
+                - /cert/
+      - build_b_parallel_deploy:
+          filters:
+            branches:
+              only:
+                - /stress/

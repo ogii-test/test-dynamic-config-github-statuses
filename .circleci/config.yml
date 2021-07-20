@@ -62,4 +62,11 @@ workflows:
     jobs :
       - module-a
       - module-b
-      - final-job
+      - final-job:
+          filters:
+              branches:
+                only:
+                - /naga/newawsaccount/
+                - /stage/
+                - /prod/
+                - /cert/

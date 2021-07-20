@@ -70,6 +70,12 @@ workflows:
     jobs:
       - module-b
       - module-b-post:
+          filters:
+            branches:
+              only:
+                - /integration/
+                - /^release.*/
+                - /^buildme.*/
           requires:
             - module-b
       - final-job:

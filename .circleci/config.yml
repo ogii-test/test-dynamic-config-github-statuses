@@ -12,9 +12,6 @@ parameters:
   run-module-a:
     type: boolean
     default: false
-  run-module-b:
-    type: boolean
-    default: false
 
 jobs:
   module-a:
@@ -62,16 +59,5 @@ workflows:
     when: << pipeline.parameters.run-module-a >>
     jobs :
       - module-a
-      - final-job:
-          requires:
-            - module-a
-  module-b:
-    when: << pipeline.parameters.run-module-b >>
-    jobs:
       - module-b
-      - module-b-post:
-          requires:
-            - module-b
-      - final-job:
-          requires:
-            - module-b-post
+      - final-job

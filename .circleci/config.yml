@@ -3,6 +3,7 @@ version: 2.1
 setup: << pipeline.parameters.run-setup >>
 
 orbs:
+  slack: circleci/slack@3.4.2
   path-filtering: circleci/path-filtering@0.0.2
  
 parameters:

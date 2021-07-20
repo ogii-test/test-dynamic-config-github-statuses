@@ -9,7 +9,7 @@ parameters:
   run-setup:
     type: boolean
     default: true
-  run-module-a:
+  build_hypgames:
     type: boolean
     default: false
 
@@ -53,10 +53,10 @@ workflows:
           # 3-column space-separated table for mapping; `path-to-test parameter-to-set value-for-parameter` for each row
           mapping: |
             .* run-setup false
-            module-a/.* run-module-a true
+            module-a/.* build_hypgames true
 
   module-a:
-    when: << pipeline.parameters.run-module-a >>
+    when: << pipeline.parameters.build_hypgames >>
     jobs :
       - module-a
       - module-b

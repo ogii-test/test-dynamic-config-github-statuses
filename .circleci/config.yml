@@ -43,7 +43,6 @@ jobs:
       - run: echo "finished building"
 
 workflows:
-  version: 2.1
   pre:
     when: << pipeline.parameters.run-setup >>
     jobs:

@@ -57,7 +57,7 @@ workflows:
           mapping: |
             .* run-setup false
             module-a/.* run-module-a true
-            module-b/.* run-module-b true
+
   module-a:
     when: << pipeline.parameters.run-module-a >>
     jobs :
